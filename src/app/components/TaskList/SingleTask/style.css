@@ -11,6 +11,7 @@
 
 .single-task-container.done {
   text-decoration: line-through;
+  background-color: rgba(24, 47, 74, 0.5);
 }
 
 .single-task-container>div>button:first-child {

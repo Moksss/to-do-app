@@ -2,10 +2,16 @@ import React from "react";
 import SingleTask from "./SingleTask";
 import './style.css'
 
-const TaskList = ({ renderData }) => {
+const TaskList = ({ taskList, setTaskList }) => {
   return(
     <div className="allTasksContainer">
-      { renderData.map((dataItem) => <SingleTask renderData={dataItem}/>) }
+      { taskList.map((task) =>
+        <SingleTask 
+          task={task}
+          taskList={taskList}
+          setTaskList={setTaskList}
+        />
+      )}
     </div>
   );
 };
