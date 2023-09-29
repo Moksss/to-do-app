@@ -5,12 +5,13 @@ import TaskList from './components/TaskList';
 import './App.css';
 
 const App = () => {
-
+  const taskList = ['PRIKAZ PROMENJEN?', '2', '3'];
+  
   return (
     <div className='app'>
       <Heading />
       <TaskControl />
-      <TaskList />
+      <TaskList renderData={taskList} />
     </div>
   );
 }

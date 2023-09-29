@@ -4,7 +4,7 @@ import './style.css';
 
 const Heading = () => (
   <div className="heading-title-container">
-    <Typography variant="h1" gutterBottom>
+    <Typography variant="h3" gutterBottom>
       TO-DO LIST
     </Typography>
   </div>
