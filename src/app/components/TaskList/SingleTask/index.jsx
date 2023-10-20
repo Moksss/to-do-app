@@ -9,18 +9,19 @@ import './style.css'
 
 const SingleTask = ({ task, taskList, setTaskList }) => {
   const doneBtnClickHandler = () => {
-  const updatedTaskList = taskList.map((currentTask) => {
-    if(currentTask.id === task.id) {
-      return({
-        ...currentTask,
-        isDone: !currentTask.isDone,
-      });
-    }
-    return(currentTask);
-  });
+    const updatedTaskList = taskList.map((currentTask) => {
+      if(currentTask.id === task.id) {
+        return({
+          ...currentTask,
+          isDone: !currentTask.isDone,
+        });
+      }
+      return(currentTask);
+    });
 
-  
-  axios.put(`${taskListUrl}/${task.id}`, {...task, isDone: !task.isDone}).then(() => {setTaskList(updatedTaskList)})
+    axios.put(`${taskListUrl}/${task.id}`, {...task, isDone: !task.isDone})
+      .then(() => { setTaskList(updatedTaskList) })
+      .catch((err) => { console.error(err) })
   }
 
   const deleteBtnClickHandler = () => {
@@ -31,7 +32,6 @@ const SingleTask = ({ task, taskList, setTaskList }) => {
     }).catch((err) => {
       console.error(err);
     });
-    
   }
 
   return(

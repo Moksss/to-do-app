@@ -11,7 +11,6 @@ const App = () => {
   useEffect(() => {
     axios.get(taskListUrl)
       .then(res => {
-        console.log(res);
         setTaskList(res.data);
       })
       .catch(err => {console.error(err)});
