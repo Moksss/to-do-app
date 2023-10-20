@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
+import uuid from "react-uuid";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import uuid from "react-uuid";
+import { taskListUrl } from "../../constants";
 import './style.css';
 
 const TaskControl = ({ taskList, setTaskList }) => {
@@ -13,8 +15,14 @@ const TaskControl = ({ taskList, setTaskList }) => {
       task: inputFieldValue,
       isDone: false,
     };
-    setTaskList([...taskList, obj]);
-    setInputFieldValue('');
+    axios.post(taskListUrl, obj)
+    .then(() => {
+      setTaskList([...taskList, obj]);
+    })
+    .catch(err => console.error(err))
+    .finally(() => {
+      setInputFieldValue('');
+    });
   };
 
   return(
@@ -26,7 +34,7 @@ const TaskControl = ({ taskList, setTaskList }) => {
         value={inputFieldValue}
         onChange={(e) => setInputFieldValue(e.target.value)}
       />
-      <Button variant="outlined" onClick={handleOnClickBtn}>Add Task</Button>
+      <Button variant="outlined" onClick={handleOnClickBtn} disabled={!inputFieldValue}>Add Task</Button>
     </div>
   );
 };

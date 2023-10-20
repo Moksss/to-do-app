@@ -1,27 +1,37 @@
 import React from "react";
+import axios from "axios";
 import DoneIcon from '@mui/icons-material/Done';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import { taskListUrl } from "../../../constants";
 import './style.css'
 
 const SingleTask = ({ task, taskList, setTaskList }) => {
   const doneBtnClickHandler = () => {
-    setTaskList(
-      taskList.map((currentTask) => {
-        if(currentTask.id === task.id) {
-          return({
-            ...currentTask,
-            isDone: !currentTask.isDone,
-          });
-        }
-        return(currentTask);
-      })
-    );
+  const updatedTaskList = taskList.map((currentTask) => {
+    if(currentTask.id === task.id) {
+      return({
+        ...currentTask,
+        isDone: !currentTask.isDone,
+      });
+    }
+    return(currentTask);
+  });
+
+  
+  axios.put(`${taskListUrl}/${task.id}`, {...task, isDone: !task.isDone}).then(() => {setTaskList(updatedTaskList)})
   }
 
   const deleteBtnClickHandler = () => {
-    console.log('DELETE!');
+    axios.delete(`${taskListUrl}/${task.id}`).then(() => {
+      setTaskList(
+        taskList.filter((currentTask) => currentTask.id !== task.id)
+      );
+    }).catch((err) => {
+      console.error(err);
+    });
+    
   }
 
   return(
